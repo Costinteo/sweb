@@ -15,7 +15,7 @@ class Syscall
     static size_t close(size_t fd);
     static size_t open(size_t path, size_t flags);
     static void pseudols(const char *pathname, char *buffer, size_t size);
-
+    static int flipBit(char* address, int bitnum);
     static size_t createprocess(size_t path, size_t sleep);
     static void trace();
 };

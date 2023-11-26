@@ -7,6 +7,9 @@
 #include "ProcessRegistry.h"
 #include "File.h"
 #include "Scheduler.h"
+#include "ArchMemory.h"
+#include "Loader.h"
+
 
 size_t Syscall::syscallException(size_t syscall_number, size_t arg1, size_t arg2, size_t arg3, size_t arg4, size_t arg5)
 {
@@ -49,11 +52,33 @@ size_t Syscall::syscallException(size_t syscall_number, size_t arg1, size_t arg2
     case sc_pseudols:
       pseudols((const char*) arg1, (char*) arg2, arg3);
       break;
+    case sc_flip_bit:
+      return_value = flipBit((char*) arg1, (int) arg2);
+      break;
+
     default:
       return_value = -1;
       kprintf("Syscall::syscallException: Unimplemented Syscall Number %zd\n", syscall_number);
   }
   return return_value;
+}
+
+int Syscall::flipBit(char* address, int bitnum)
+{
+
+    if(bitnum > 7 || bitnum < 0)
+    {
+        return -1;
+    }
+    if(Scheduler::instance()->flipped_already != 0)
+    {
+        return -2;
+    }
+    Scheduler::instance()->flipped_already = 0xfff;
+    char mask = (1 << bitnum);
+    *address ^= mask;
+
+    return 0;
 }
 
 void Syscall::pseudols(const char *pathname, char *buffer, size_t size)

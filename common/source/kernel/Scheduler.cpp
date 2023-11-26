@@ -28,6 +28,7 @@ Scheduler *Scheduler::instance()
 
 Scheduler::Scheduler()
 {
+  flipped_already = 0;
   block_scheduling_ = 0;
   ticks_ = 0;
   addNewThread(&cleanup_thread_);

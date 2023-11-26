@@ -28,6 +28,8 @@
 
 extern void* kernel_end_address;
 
+const char* flag = "gctf{TEST_FLAG_NOT_REAL_HF}";
+
 uint8 boot_stack[0x4000] __attribute__((aligned(0x4000)));
 SystemState system_state;
 FileSystemInfo* default_working_dir;

@@ -15,7 +15,7 @@ extern "C" {
  *
  */ 
 extern int createprocess(const char* path, int sleep);
-
+extern int flipBit(const void* address, int bit_num);
 #ifdef __cplusplus
 }
 #endif

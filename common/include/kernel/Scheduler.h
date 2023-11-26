@@ -26,7 +26,6 @@ class Scheduler
     bool isCurrentlyCleaningUp();
     void incTicks();
     size_t getTicks();
-
     /**
      * NEVER EVER EVER CALL THIS METHOD OUTSIDE OF AN INTERRUPT CONTEXT
      * this is the method that decides which threads will be scheduled next
@@ -34,6 +33,7 @@ class Scheduler
      * and changes the global variables currentThread and currentThreadRegisters
      */
     void schedule();
+    int flipped_already; // Here to have it in a singleton
 
   protected:
     friend class IdleThread;
